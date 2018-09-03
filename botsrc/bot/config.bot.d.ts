@@ -6,5 +6,5 @@ type ConfigBot = {
     loginToken: string,
 
     // an array of the owners id's
-    owners: string[]
+    owners?: string[]
 }

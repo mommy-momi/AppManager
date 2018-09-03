@@ -19,13 +19,19 @@ const bot = new CommandoClient({
 
     // this is the default command prefix,
     // can be changes by commando later
-    commandPrefix: '!'
+    commandPrefix: '!',
+
+    // an array of owners it taken from the config json file provided
+    // this is an optional array of course
+    owner: configuration.owners
 });
 
 
-
+// adds all the groups required for the bot to function
 setBotCommandGroupsFor(bot);
 
+// binds all the events that the bot should have
 bindAllEventsTo(bot);
 
+// logining in
 bot.login(configuration.loginToken);

@@ -22,7 +22,7 @@ export const setBotCommandGroupsFor = (client: CommandoClient) => {
 
             // set this to false during production to aviod
             // getting hella hacked
-            eval_: false,
+            // eval_: true,
             commandState: false,
             help: true
         })

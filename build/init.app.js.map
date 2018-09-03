@@ -1,1 +1,0 @@
-{"version":3,"sources":["../botsrc/init.app.ts"],"names":[],"mappings":";;AAGA,wBAAsB;AAItB,0BAAwB","file":"init.app.js","sourcesContent":["\r\n// INITIALIZE DATABASE\r\n\r\nimport './db/init.db';\r\n\r\n// INITIALIZE BOT\r\n\r\nimport './bot/init.bot';"]}
