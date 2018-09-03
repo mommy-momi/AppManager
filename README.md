@@ -2,7 +2,7 @@
 
 ## Initing the bot, for devs
 
-1.) Make sure you have a versioin compatible with the one in the `version` file
+1.) Make sure you have a version compatible with the one in the `version` file
 
 2.) create a `config.bot.json` file in the `./botsrc/bot` directory with the following info:
 
