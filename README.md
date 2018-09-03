@@ -8,7 +8,7 @@
 
 ```json
 {
-    loginToken: "your login token from discordapp"
+    "loginToken": "your login token from discordapp"
 }
 ```
 
