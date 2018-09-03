@@ -1,0 +1,29 @@
+{
+  "name": "app-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "run": "node build/init.app.js",
+    "build-p": "gulp build-production",
+    "build": "gulp build-develop",
+    "start": "gulp build-develop && node build/init.app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/gulp": "^4.0.5",
+    "@types/gulp-sourcemaps": "0.0.32",
+    "@types/mongoose": "^5.2.9",
+    "discord.js": "^11.4.2",
+    "discord.js-commando": "^0.10.0",
+    "eslint": "^5.5.0",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.4.0",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-typescript": "^5.0.0-alpha.3",
+    "mongoose": "^5.2.12",
+    "typescript": "^3.0.3"
+  }
+}
