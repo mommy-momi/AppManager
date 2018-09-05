@@ -6,6 +6,12 @@ export class AppHandler {
     private application: IApplication;
     private currentQuestion: IQuestion;
     private answers: IAnswer[];
+
+    /**
+     * This is the handler that will create and manage applications done by a user
+     * 
+     * @param application the application form that can be pulled from the DB
+     */
     constructor(application: IApplication) {
         this.application = application;
         this.answers = [];
@@ -21,13 +27,20 @@ export class AppHandler {
      * @returns the next question. if this returns null, that was the last question
      */
     getNextQuestion(answer: string = null) {
+
+        // if the current answer is null, that means we have not
+        // started the application yet
         if (this.currentQuestion === null) {
             this.currentQuestion = this.application.application.START;
             return this.currentQuestion;
         }
 
+        // if the current question is not null and the answer is null
+        // this means that the user never gave us any info which means we cannot finish
+        // this form until that happens
         if (!answer) throw new Error('APPHANDLER: `answer` is not declared after first question');
 
+        // when the type is freetext, do this to commit the answers to the question
         if (this.currentQuestion.type === 'FREETEXT') {
             this.commitFreeTextAnswer(answer, this.currentQuestion);
             if (this.nextQuestionExists()) {
@@ -36,6 +49,7 @@ export class AppHandler {
             }
         }
 
+        // when the type is reaction, do this to commit the answers to the question
         if (this.currentQuestion.type === 'REACTION') {
             const reactionCommitedTo = this.commitReactionAnswer(answer, this.currentQuestion);
             if (this.nextFromReactionExists(reactionCommitedTo)) {
@@ -48,6 +62,10 @@ export class AppHandler {
         return null;
     }
 
+    /**
+     * after everything is complete, use this method
+     * to return all the answers given by the user
+     */
     getAggregatedAnswers() {
         return this.answers;
     }
