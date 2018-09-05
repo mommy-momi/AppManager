@@ -1,10 +1,13 @@
-interface IReaction {
+export interface IReaction {
     reaction: string;
 
     // this prompt would represent what this specific
     // reaction represents
     prompt: string;
-    next: string;
+
+    // could be the end of the application, in that case
+    // its null
+    next?: string;
 };
 
 export interface IQuestion {
