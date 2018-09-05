@@ -1,8 +1,9 @@
 # App Manager
 
-## Initing the bot, for devs
+## Follow these steps to run the bot yoursrlf! (
+for devs)
 
-1.) Make sure you have a version compatible with the one in the `version` file
+1.) Make sure you have a version compatible with the one in the `version` file.
 
 2.) create a `config.bot.json` file in the `./botsrc/bot` directory with the following info:
 
@@ -12,15 +13,15 @@
 }
 ```
 
-3.) do the following steps
+3.) Install and run the bot!
 
 ```bash
 
-# the usual
+# Installing the bot.
 npm install
 
 # will build then run the bot viola!
 npm start
 ```
 
-4.) all done!
+4.) all done! Enjoy!
