@@ -1,16 +1,13 @@
-import { GuildMember, User } from "discord.js";
 import { IApplication } from "../../db/formats/application.format";
 import { IQuestion, IReaction } from "../../db/formats/question.format";
 
 // this is the handler that will create and manage applications done by a user
 export class AppHandler {
     private application: IApplication;
-    private member: GuildMember | User;
     private currentQuestion: IQuestion;
     private answers: IAnswer[];
-    constructor(application: IApplication, member: GuildMember | User) {
+    constructor(application: IApplication) {
         this.application = application;
-        this.member = member;
         this.answers = [];
     }
 
