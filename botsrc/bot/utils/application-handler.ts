@@ -3,7 +3,7 @@ import { IQuestion, IReaction } from "../../db/formats/question.format";
 
 // this is the handler that will create and manage applications done by a user
 export class AppHandler {
-    private application: IApplication;
+    application: IApplication;
     private currentQuestion: IQuestion;
     private answers: IAnswer[];
 
@@ -30,7 +30,7 @@ export class AppHandler {
 
         // if the current answer is null, that means we have not
         // started the application yet
-        if (this.currentQuestion === null) {
+        if (this.currentQuestion === undefined) {
             this.currentQuestion = this.application.application.START;
             return this.currentQuestion;
         }
