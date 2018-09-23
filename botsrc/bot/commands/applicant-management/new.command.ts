@@ -2,6 +2,7 @@ import { Command, CommandoClient, CommandMessage } from "discord.js-commando";
 import { Message } from "discord.js";
 import { AppDispatcher } from "../../utils/application-dispatcher";
 import { AppBuilder } from "../../utils/application-builder";
+import { ApplicationController } from "../../../db/controllers/application/application.controller";
 
 class NewCommand extends Command {
     constructor(client: CommandoClient) {
@@ -18,7 +19,7 @@ class NewCommand extends Command {
     }
 
     async run(message: CommandMessage): Promise<Message | Message[]> {
-        const myApp = new AppBuilder()
+        const myApp = new AppBuilder(message.guild)
             .setTitle('Test Application')
             .setDescription('Welcome to test application!')
             .setQuestionTimeout(0.1)
@@ -33,6 +34,7 @@ class NewCommand extends Command {
             );
 
         const myDispatcher = new AppDispatcher(myApp.generateApplication(), message.member, this.client);
+        ApplicationController.Post.application(myApp.generateApplication());
         message.channel.send(`Sending application... ${message.author.username}, please check your DM\'s.`);
 
         myDispatcher.useGuild(message.guild).dispatchQuestions().then((response) => {

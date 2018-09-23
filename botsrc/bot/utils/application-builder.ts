@@ -1,5 +1,6 @@
 import { IApplication, ApplicationContent } from "../../db/formats/application.format";
 import { IReaction, IQuestion } from "../../db/formats/question.format";
+import { Guild } from "discord.js";
 
 /**
  * class used to manipulate or create applications
@@ -86,9 +87,10 @@ export class AppBuilder {
     * The first time you create a question does **NOT** require a key, it will default to 
     * *START* even if you give one. The order in which question are created is **NOT** guarenteed
     */
-    constructor() {
+    constructor(server: Guild = null) {
         this.activated = true;
-        this.server = '';
+        if (server) this.server = server.id;
+        else this.server = '';
         this.title = '';
         this.description = '';
         this.questionTimeout = 0;
