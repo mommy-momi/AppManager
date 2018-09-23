@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const CategorySchema = new Schema({
+export const ApplicationSchema = new Schema({
     isActivated: {
         type: Boolean,
         required: true
@@ -49,4 +49,4 @@ const CategorySchema = new Schema({
     }
 });
 
-model('application', CategorySchema);
+model('application', ApplicationSchema);

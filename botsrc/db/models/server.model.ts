@@ -1,6 +1,6 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
-const CategorySchema = new Schema({
+export const ServerSchema = new Schema({
     _id: {
         type: String,
         required: true
@@ -13,4 +13,4 @@ const CategorySchema = new Schema({
     ]
 });
 
-model('server', CategorySchema);
+model('server', ServerSchema);

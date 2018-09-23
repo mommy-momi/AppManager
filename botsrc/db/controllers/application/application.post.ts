@@ -1,13 +1,14 @@
 import { IApplication, IApplicationModel } from "../../formats/application.format";
 import { model } from "mongoose";
+import { Controller } from "../base";
 
 const models = {
     Application: model<IApplicationModel>('application')
 }
 
-export const ApplicationPostController = {
-    application: (applicationData: IApplication) => {
+export class ApplicationPostController extends Controller {
+    static async application(applicationData: IApplication) {
         const mongoApp = new models.Application(applicationData);
-        return mongoApp.save();
+        return await mongoApp.save();
     }
 };
