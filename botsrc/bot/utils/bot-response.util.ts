@@ -6,7 +6,6 @@ export class BotEmbedResponse extends RichEmbed {
         super();
         const avatarUrl = client.user.avatarURL;
         this.setColor(0xaa37ba);
-        this.setThumbnail(avatarUrl);
         this.setAuthor(client.user.username, avatarUrl, 'https://www.google.com');
         this.setFooter(client.user.username, avatarUrl);
         this.setTimestamp(new Date(Date.now()));

@@ -2,6 +2,7 @@ import { IApplication } from "../../db/formats/application.format";
 import { IQuestion, IReaction } from "../../db/formats/question.format";
 
 // this is the handler that will create and manage applications done by a user
+// REALLY FOR INTERNAL UTIL MANAGEMENT ONLY
 export class AppHandler {
     application: IApplication;
     private currentQuestion: IQuestion;

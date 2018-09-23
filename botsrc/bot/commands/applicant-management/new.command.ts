@@ -1,6 +1,7 @@
 import { Command, CommandoClient, CommandMessage } from "discord.js-commando";
 import { Message } from "discord.js";
 import { AppDispatcher } from "../../utils/application-dispatcher";
+import { AppBuilder } from "../../utils/application-builder";
 
 class NewCommand extends Command {
     constructor(client: CommandoClient) {
@@ -17,39 +18,24 @@ class NewCommand extends Command {
     }
 
     async run(message: CommandMessage): Promise<Message | Message[]> {
-        const myApp = new AppDispatcher({
-            isActivated: true,
-            server: '',
-            title: 'Test Application',
-            description: 'Welcome to the test application!',
-            questionTimeout: .1,
-            applicationsRecieved: 0,
-            application: {
-                START: {
-                    type: 'FREETEXT',
-                    prompt: 'Enter your name',
-                    next: 'REACTIONTEST'
-                },
-                REACTIONTEST: {
-                    type: 'REACTION',
-                    prompt: 'enter some reactions boi',
-                    reactions: [
-                        {
-                            reaction: '🏠',
-                            prompt: 'house emoji'
-                        },
-                        {
-                            reaction: '👀',
-                            prompt: 'eye emoji'
-                        }
-                    ]
-                }
-            }
-        }, message.member, this.client);
+        const myApp = new AppBuilder()
+            .setTitle('Test Application')
+            .setDescription('Welcome to test application!')
+            .setQuestionTimeout(0.1)
+            .createFreetextQuestion('', 'Enter your name', 'REACTIONTEST')
+            .createReactQuestion(
+                'REACTIONTEST',
+                'enter some reactions',
+                [
+                    AppBuilder.createReaction('🏠', 'house emoji'),
+                    AppBuilder.createReaction('👀', 'eye emoji')
+                ]
+            );
 
+        const myDispatcher = new AppDispatcher(myApp.generateApplication(), message.member, this.client);
         message.channel.send(`Sending application... ${message.author.username}, please check your DM\'s.`);
-        myApp.useGuild(message.guild);
-        myApp.dispatchQuestions().then((response) => {
+
+        myDispatcher.useGuild(message.guild).dispatchQuestions().then((response) => {
             if (response && response.status !== 'TIMEOUT') {
                 message.member.send('All done!');
             }

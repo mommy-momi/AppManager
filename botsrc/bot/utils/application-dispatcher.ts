@@ -5,6 +5,20 @@ import { IQuestion, IReaction } from "../../db/formats/question.format";
 import { BotEmbedResponse } from "./bot-response.util";
 import { CommandoClient } from "discord.js-commando";
 
+/**
+ * Class used to act as an interface between discord and the applicatiopn
+ * 
+ * will dispatch questions. Example use:
+ ```
+ const myDispatcher = 
+    new AppDispatcher(
+        myApp.generateApplication(), 
+        message.member, 
+        this.client
+    );
+  myDispatcher.useGuild(message.guild).dispatchQuestions()
+ ```
+ */
 export class AppDispatcher {
     private app: AppHandler;
     private member: GuildMember | User;
@@ -24,12 +38,23 @@ export class AppDispatcher {
         this.client = client;
     }
 
+    /**
+     * sets what guild to be used
+     * 
+     * @param guild the guild object to use
+     */
     public useGuild(guild: Guild) {
         this.guild = guild;
+        return this;
     }
 
-    sendIntroductoryEmbed() {
+    /**
+     * sends the introductory statement of what this application is about
+     */
+    public sendIntroductoryEmbed() {
         const intro = new BotEmbedResponse(this.client);
+
+        // if the guild was set, give it the servers logo
         if (this.guild) intro.setThumbnailToGuild(this.guild);
         intro.setDescription(this.app.application.description);
         intro.setTitle(this.app.application.title);
@@ -184,7 +209,7 @@ export class AppDispatcher {
      */
     private buildReactionQuestion(question: IQuestion) {
         const reactionQuestionEmbed = new BotEmbedResponse(this.client);
-        if (this.guild) reactionQuestionEmbed.setThumbnailToGuild(this.guild);
+        reactionQuestionEmbed.setAuthor(this.app.application.title);
         let availableReactions = '';
         question.reactions.forEach((reaction) => {
             availableReactions += `${reaction.reaction} - ${reaction.prompt}\n`;
@@ -201,7 +226,7 @@ export class AppDispatcher {
      */
     private buildFreetextQuestion(question: IQuestion) {
         const freetextQuestionEmbed = new BotEmbedResponse(this.client);
-        if (this.guild) freetextQuestionEmbed.setThumbnailToGuild(this.guild);
+        freetextQuestionEmbed.setAuthor(this.app.application.title);
         freetextQuestionEmbed.addField('Answer the following question with your next message', question.prompt);
         freetextQuestionEmbed.addField('Time remaining', `${this.app.application.questionTimeout} minutes left for this question`);
         return freetextQuestionEmbed;
